@@ -1,6 +1,13 @@
 import React from "react";
 
 function PizzaBlock(props) {
+    const [activeType, setActiveType] = React.useState(props.types[0]);
+    const [activeSize, setActiveSize] = React.useState(props.sizes[0]);
+    const [activeAmount, setActiveAmount] = React.useState(0);
+
+    const addToCart = () => {
+        setActiveAmount(activeAmount + 1)
+    }
 
     return (
         <div className="pizza-block">
@@ -13,18 +20,18 @@ function PizzaBlock(props) {
             <div className="pizza-block__selector">
                 <ul>
                     {
-                        props.types.map((type) => {
+                        props.types.map((type, index) => {
                             return (
-                                <li>{type}</li>
+                                <li key={ index } onClick={() => setActiveType(type)} className={activeType === type ? 'active' : ''}>{type}</li>
                             )
                         })
                     }
                 </ul>
                 <ul>
                     {
-                        props.sizes.map((size) => {
+                        props.sizes.map((size, index) => {
                             return (
-                                <li>{size} см.</li>
+                                <li key={ index } onClick={() => setActiveSize(size)} className={activeSize === size ? 'active' : ''}>{size} см.</li>
                             )
                         })
                     }
@@ -32,7 +39,7 @@ function PizzaBlock(props) {
             </div>
             <div className="pizza-block__bottom">
                 <div className="pizza-block__price">от {props.price} ₽</div>
-                <button className="button button--outline button--add">
+                <button onClick={addToCart} className="button button--outline button--add">
                     <svg
                         width="12"
                         height="12"
@@ -46,7 +53,7 @@ function PizzaBlock(props) {
                         />
                     </svg>
                     <span>Добавить</span>
-                    <i>0</i>
+                    <i>{activeAmount}</i>
                 </button>
             </div>
         </div>

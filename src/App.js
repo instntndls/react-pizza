@@ -5,25 +5,6 @@ import Sort from "./components/Sort";
 import PizzaBlock from "./components/PizzaBlock";
 import pizzas from "./assets/pizzas.json";
 
-function PizzaRender() {
-    return (
-            pizzas.map((pizza, index) => {
-                return (
-                        <PizzaBlock
-                                key={index}
-                                name={pizza.name}
-                                imageUrl={pizza.imageUrl}
-                                price={pizza.price}
-                                sizes={pizza.sizes}
-                                types={pizza.types}
-                        />
-                )
-            })
-    )
-
-}
-
-
 function App() {
   return (
       <div className="wrapper">
@@ -36,7 +17,13 @@ function App() {
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-              {PizzaRender()}
+                {
+                    pizzas.map((pizza, index) => {
+                        return (
+                            <PizzaBlock key={index} {...pizza}/>
+                        )
+                    })
+                }
             </div>
           </div>
         </div>
