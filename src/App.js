@@ -1,16 +1,26 @@
-import logo from './logo.svg';
 import './scss/app.scss';
 import Header from "./components/Header";
 import Categories from "./components/Categories";
 import Sort from "./components/Sort";
 import PizzaBlock from "./components/PizzaBlock";
+import pizzas from "./assets/pizzas.json";
 
-function PizzaRender(amount) {
-    const arr = [];
-    for (let i = 0; i < amount; i++) {
-        arr.push(<PizzaBlock/>)
-    }
-    return arr
+function PizzaRender() {
+    return (
+            pizzas.map((pizza, index) => {
+                return (
+                        <PizzaBlock
+                                key={index}
+                                name={pizza.name}
+                                imageUrl={pizza.imageUrl}
+                                price={pizza.price}
+                                sizes={pizza.sizes}
+                                types={pizza.types}
+                        />
+                )
+            })
+    )
+
 }
 
 
@@ -26,7 +36,7 @@ function App() {
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">
-              {PizzaRender(10)}
+              {PizzaRender()}
             </div>
           </div>
         </div>
